@@ -1,4 +1,4 @@
-rssslurp
+RSSslurp
 ========
 
-Peril slurper to consume RSS feeds
+Peril slurper to consume arbitrary RSS feeds.
