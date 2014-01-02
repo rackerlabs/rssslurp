@@ -8,7 +8,6 @@ feed "https://community.rackspace.com/developers/rss" do
   end
 
   transform do |item|
-    puts "running on item: #{item.title}"
     item.title.gsub! /^Forum Post: (Re: )?/i, ''
   end
 end
