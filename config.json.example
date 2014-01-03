@@ -2,5 +2,7 @@
   "rackspace-username": "",
   "rackspace-apikey": "",
   "rackspace-region": "DFW",
-  "queue-name": "perilevents"
+  "queue-name": "perilevents",
+  "log-file": "-",
+  "log-level": "INFO"
 }
