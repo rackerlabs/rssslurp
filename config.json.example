@@ -3,6 +3,5 @@
   "rackspace-apikey": "",
   "rackspace-region": "DFW",
   "queue-name": "perilevents",
-  "log-file": "-",
   "log-level": "INFO"
 }
