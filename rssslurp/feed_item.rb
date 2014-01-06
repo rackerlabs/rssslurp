@@ -1,12 +1,14 @@
-class FeedItem
-  attr_accessor :url, :title, :date
+require 'date'
 
-  def as_incident
+class FeedItem
+  attr_accessor :url, :title, :time
+
+  def to_incident
     {
       url: url,
       reporter: 'rssslurp-0.1',
       title: title,
-      date: date.to_i
+      date: time.to_i
     }
   end
 
@@ -14,7 +16,7 @@ class FeedItem
     new.tap do |i|
       i.url = node.at_css('link').content
       i.title = node.at_css('title').content
-      i.date = DateTime.parse(node.at_css('pubDate').content)
+      i.time = DateTime.parse(node.at_css('pubDate').content).to_time
     end
   end
 end

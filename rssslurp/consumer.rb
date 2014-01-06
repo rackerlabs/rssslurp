@@ -1,4 +1,4 @@
-require_relative 'feeds'
+require_relative 'feed_registry'
 
 class Consumer
   def consume
