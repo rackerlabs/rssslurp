@@ -6,9 +6,9 @@ class FeedItem
   def to_incident
     {
       url: url,
-      reporter: 'rssslurp-0.1',
+      reporter: "rssslurp-#{VERSION}",
       title: title,
-      date: time.to_i
+      incident_date: time.to_i
     }
   end
 
