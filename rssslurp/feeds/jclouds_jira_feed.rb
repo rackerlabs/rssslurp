@@ -9,6 +9,8 @@ class JCloudsJiraFeed < Feed
     super.select do |item|
       downcased = item.body.downcase + item.title.downcase
       KEYWORDS.any? { |word| downcased.include? word }
+    end.each do |item|
+      item.tags << 'jclouds'
     end
   end
 end
