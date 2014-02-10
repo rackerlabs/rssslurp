@@ -1,7 +1,7 @@
 require 'date'
 
 class FeedItem
-  attr_accessor :url, :title, :time
+  attr_accessor :url, :title, :time, :body
 
   def to_incident
     {
@@ -16,6 +16,7 @@ class FeedItem
     new.tap do |i|
       i.url = node.at_css('link').content
       i.title = node.at_css('title').content
+      i.body = node.at_css('description').content
       i.time = DateTime.parse(node.at_css('pubDate').content).to_time
     end
   end
