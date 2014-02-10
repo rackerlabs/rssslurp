@@ -11,7 +11,8 @@ class Publisher
 
   def reconfigure config
     return unless config_changed? config,
-      'rackspace-username', 'rackspace-apikey', 'rackspace-region', 'queue-name'
+      'rackspace-username', 'rackspace-apikey', 'rackspace-region',
+      'queue-name', 'print-only'
     logger.debug "Configuration change detected. Re-acquiring queue."
     @last_config = config
 
@@ -21,19 +22,25 @@ class Publisher
       rackspace_region: config["rackspace-region"]
     )
 
+    @print_only = config["print-only"]
+
     qname = config["queue-name"]
-    @queue = service.queues.get qname
-    raise "Queue #{qname} not found!" unless @queue
-    logger.debug "Discovered queue #{qname}."
+    unless @print_only
+      @queue = service.queues.get qname
+      raise "Queue #{qname} not found!" unless @queue
+      logger.debug "Discovered queue #{qname}."
+    end
   end
 
   def publish items
-    raise "Publisher is unconfigured!" unless @queue
+    raise "Publisher is unconfigured!" unless @queue || @print_only
 
     logger.info "Publishing #{items.size} items to the queue."
     items.each do |item|
-      logger.debug { "Publishing item: #{item.inspect}" }
-      @queue.messages.create(body: item.to_incident, ttl: 3600)
+      logger.debug { "Publishing item: #{item.title}" }
+      unless @print_only
+        @queue.messages.create(body: item.to_incident, ttl: 3600)
+      end
     end
   end
 

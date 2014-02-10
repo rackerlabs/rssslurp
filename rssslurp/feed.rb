@@ -17,7 +17,6 @@ class Feed
     logger.info "Fetching items for feed <#{@url}>."
     content = HTTParty.get(@url).body
     Nokogiri::XML(content).xpath("//rss/channel/item").map do |node|
-      logger.debug { "Parsing item from: #{node}" }
       FeedItem.from_node node
     end.tap { |items| logger.info "Retrieved #{items.size} items." }
   end
